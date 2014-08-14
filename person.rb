@@ -13,13 +13,14 @@ class Person
   end
 
   def eat(foods)
-
     contains_allergy = false
+
     foods.each do |food|
       if @allergies.index(food) != nil
         contains_allergy = true
       end
     end
+
     if contains_allergy
       throw_allergy_error
     else
@@ -28,15 +29,13 @@ class Person
   end
 
   private
+
     def throw_allergy_error
-      # do real error handling here
-      # instead of puts
       begin
-        raise AllergyError.new({e: "thing"}), "Allergy Error! You're going to throw up!"
+        raise AllergyError.new({e: "thing"}), "Allergy Error! #{@name} is going to throw up!"
       rescue AllergyError => e
         puts e.message
       end
-      # puts "Don't eat that!!!"
       @stomach = []
     end
 end
@@ -50,7 +49,16 @@ pan_seared_scallops = ["scallops", "lemons", "pasta", "olive oil"]
 gluten_free_icecream = ["coconut milk", "cocoa"]
 
 p john.stomach
-john.eat(pizza)
-john.eat(pan_seared_scallops)
-john.eat(gluten_free_icecream)
+puts "Should John eat pizza, pan seared scallops or gluten free icecream?"
+food = gets.chomp
+
+if food == "pizza"
+  john.eat(pizza)
+elsif food == "pan seared scallops"
+  john.eat(pan_seared_scallops)
+else
+  john.eat(gluten_free_icecream)
+end
+
+
 p john.stomach
